@@ -3,7 +3,10 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import static java.lang.Thread.currentThread;
 
 /**
  * Задание №4
@@ -17,7 +20,11 @@ public class Task4 implements Task {
      */
     @Override
     public void run() throws IOException {
-        Properties properties = read("resources/database");
+        Properties properties = read();
+
+        System.out.println("\nTask 4 Progress: \nReading properties ......... done.");
+        System.out.println(properties.getProperty("db.sql.server.url"));
+
 
         /*
          * TODO(Студент): Выполнить задание №4
@@ -32,10 +39,14 @@ public class Task4 implements Task {
      * Выполняет чтение файла конфигураций описанного
      * параметром {@code path}.
      *
-     * @param path путь к конфигурации
      * @return новый экземпляр типа {@link Properties}
      */
-    private Properties read(String path) {
-        throw new UnsupportedOperationException("Not implement yet!");
+    private Properties read() throws IOException {
+        Properties properties = new Properties();
+        ClassLoader loader = currentThread().getContextClassLoader();
+        try (InputStream stream = loader.getSystemResourceAsStream("resources/database.properties")) {
+            properties.load(stream);
+        }
+        return properties;
     }
 }
