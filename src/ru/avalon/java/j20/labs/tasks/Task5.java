@@ -1,6 +1,7 @@
 package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
+//import ru.avalon.java.j20.labs.models.UTF8Control;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -17,7 +18,7 @@ public class Task5 implements Task {
      * {@inheritDoc}
      */
     @Override
-    public void run() throws IOException {
+    public void run() {
         /*
          * TODO(Студент): Выполнить задание №5
          *
@@ -31,6 +32,17 @@ public class Task5 implements Task {
          * 4. С использованием отладчика сравнить полученные ресурсы и
          *    проверить корректность работы программы.
          */
+
+        String path = "resources.strings.titles";
+        Locale locale = new Locale("ru");
+        ResourceBundle rb = read(path);
+
+        String file = rb.getString("menu.file");
+
+        ResourceBundle rb1 = read(path, locale);
+        String file1 = rb1.getString("menu.file");
+
+        System.out.println("\nTask 5 Progress: \nReading EN ......... " + file + "\nReading RU ......... " + file1);
     }
 
     /**
@@ -41,7 +53,7 @@ public class Task5 implements Task {
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        return ResourceBundle.getBundle(path);
     }
 
     /**
@@ -51,6 +63,6 @@ public class Task5 implements Task {
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path, Locale locale) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        return ResourceBundle.getBundle(path, locale);
     }
 }
