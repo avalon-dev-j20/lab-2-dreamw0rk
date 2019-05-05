@@ -63,11 +63,15 @@ public class Country {
      * @throws ParseException в случае, если переданная строка
      * имеет неверный формат.
      */
-    public static Country valueOf(String text) {
+    public static Country valueOf(String text) throws ParseException{
         /*
          * TODO(Студент): Реализовать метод valueOf класса Country
          */
-        return new Country(text.split(":"));
+        int index = text.indexOf(":");
+        if (index==-1) throw new ParseException ("File have no valid string!!!", 0);
+        String key = text.substring(0, index);
+        String value = text.substring(index + 1);
+        return new Country(key, value);
     }
 
     @Override
